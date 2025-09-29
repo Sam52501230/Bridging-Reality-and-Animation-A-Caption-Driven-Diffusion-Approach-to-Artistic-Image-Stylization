@@ -86,7 +86,7 @@ class FixedAtelierGenerator(AtelierGenerator):
 # ------------------ Image Processing + Poem Generator ------------------
 
 # Google API for Gemini
-google_api_key = "AIzaSyDEMtR6ZiTTg87av13iHMkUuKin3JeKXbI"
+google_api_key = ".."
 genai.configure(api_key=google_api_key)
 
 def generate_multilingual_poem(image_path, selected_languages, length, style):
