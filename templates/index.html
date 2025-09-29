@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ghibli Style Poem Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+        :root {
+            --primary: #ff7eb9;
+            --secondary: #7afcff;
+            --dark-bg: #0f0e17;
+            --darker-bg: #0a0a12;
+            --text: #fffffe;
+            --highlight: #f25f4c;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image:
+                url('https://i.imgur.com/J5Z9Q0z.png'),
+                linear-gradient(to bottom, rgba(15, 14, 23, 0.9), rgba(10, 10, 18, 0.95));
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        header {
+            background: rgba(10, 10, 18, 0.8);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 126, 185, 0.3);
+        }
+
+        .tagline {
+            font-style: italic;
+            color: var(--secondary);
+            margin-top: 0.5rem;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(15, 14, 23, 0.8);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 126, 185, 0.2);
+            backdrop-filter: blur(8px);
+            flex: 1;
+        }
+
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .form-panel {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(10, 10, 18, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(122, 252, 255, 0.1);
+        }
+
+        .output-panel {
+            flex: 2;
+            min-width: 400px;
+            background: rgba(10, 10, 18, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(122, 252, 255, 0.1);
+        }
+
+        select,
+        input,
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0 1rem;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            /* This sets the default text color */
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select option {
+            background: var(--darker-bg);
+            color: var(--text);
+        }
+
+        /* For Firefox */
+        select:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 var(--text);
+        }
+
+        /* For IE */
+        select::-ms-value {
+            color: var(--text);
+            background: transparent;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary), var(--highlight));
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(242, 95, 76, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(242, 95, 76, 0.6);
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .image-box {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .image-box p {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        pre {
+            background: rgba(10, 10, 18, 0.8);
+            padding: 1.5rem;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            border-left: 4px solid var(--primary);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            overflow-x: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(10, 10, 18, 0.8);
+            border-top: 2px solid var(--secondary);
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .ghibli-icon {
+            font-size: 1.5rem;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 1rem;
+                margin: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom file input styling */
+        input[type="file"]::file-selector-button {
+            border: 2px solid var(--primary);
+            padding: 0.6em 1.2em;
+            border-radius: 6px;
+            background-color: rgba(255, 126, 185, 0.1);
+            color: var(--primary);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: rgba(255, 126, 185, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Style the file name text */
+        input[type="file"]::before {
+            content: 'No file chosen';
+            color: var(--text);
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        input[type="file"]:valid::before {
+            content: attr(data-text);
+            color: var(--secondary);
+        }
+
+        /* For browsers that don't support file-selector-button */
+        input[type="file"]::-webkit-file-upload-button {
+            border: 2px solid var(--primary);
+            padding: 0.6em 1.2em;
+            border-radius: 6px;
+            background-color: rgba(255, 126, 185, 0.1);
+            color: var(--primary);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: rgba(255, 126, 185, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Style the file input container */
+        input[type="file"] {
+            padding: 0.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🌸 Ghibli Poem Generator 🌸</h1>
+        <p class="tagline">Transform your images into Studio Ghibli magic with AI-generated poetry</p>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <div class="form-panel">
+                <h2>Create Your Masterpiece</h2>
+                <form id="uploadForm">
+                    <label for="image">Upload Your Image</label>
+                    <input type="file" name="image" accept="image/*" required>
+
+                    <label for="style">Art Style</label>
+                    <select name="style">
+                        <option value="1">Studio Ghibli</option>
+                        <option value="2">Anime Plus</option>
+                        <option value="3">Softserve Anime</option>
+                    </select>
+
+                    <label for="language">Poem Language</label>
+                    <select name="language">
+                        <option value="English">English</option>
+                        <!-- <option value="Japanese">Japanese</option>
+            <option value="French">French</option> -->
+                    </select>
+
+                    <label for="length">Poem Length</label>
+                    <select name="length">
+                        <option value="Short">Short</option>
+                        <!-- <option value="Medium">Medium</option> -->
+                    </select>
+
+                    <label for="style_name">Poem Style</label>
+                    <select name="style_name">
+                        <option value="Free Verse">Free Verse</option>
+                        <!-- <option value="Haiku">Haiku</option>
+            <option value="Romantic">Romantic</option> -->
+                    </select>
+
+                    <button type="submit">Generate Magic <span class="ghibli-icon">✨</span></button>
+                </form>
+            </div>
+
+            <div class="output-panel">
+                <h2>Your Creation</h2>
+                <div class="image-container" id="imageContainer"></div>
+                <h3>Generated Poem</h3>
+                <pre id="poemContainer">Your beautiful poem will appear here...</pre>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with <span class="ghibli-icon">❤️</span> for Ghibli fans everywhere</p>
+        <p>© VeerAvi | Not affiliated with Studio Ghibli</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById("uploadForm");
+        const imageInput = form.querySelector('input[name="image"]');
+        const imageContainer = document.getElementById("imageContainer");
+        const poemContainer = document.getElementById("poemContainer");
+
+        // 🖼️ Show preview immediately when a file is selected
+        imageInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imageContainer.innerHTML = `
+            <div class="image-box">
+              <p>Original Image</p>
+              <img src="${e.target.result}" alt="Preview">
+            </div>`;
+                    poemContainer.textContent = "Generating your poem...";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 📨 Send to backend on form submit
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            // Show loading state
+            poemContainer.textContent = "Working magic on your image... This may take a moment ✨";
+
+            try {
+                const res = await fetch("/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (!res.ok) throw new Error("Server response was not OK");
+
+                const data = await res.json();
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                const fileInput = document.querySelector('input[type="file"]');
+                fileInput.addEventListener('change', function () {
+                    if (this.files.length > 0) {
+                        this.setAttribute('data-text', this.files[0].name);
+                    }
+                });
+
+                // Display results
+                imageContainer.innerHTML += `
+          <div class="image-box">
+            <p>Ghibli Version</p>
+            <img src="${data.image_url}" alt="Stylized Image">
+          </div>`;
+
+                poemContainer.textContent = data.poem;
+
+            } catch (error) {
+                poemContainer.textContent = `Error: ${error.message}`;
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+
+</html>
