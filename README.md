@@ -3,14 +3,28 @@
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Conference: ICCIS 2025](https://img.shields.io/badge/Conference-ICCIS%202025-green.svg)](https://scrs.in/conference/iccis2025)
 
-Official implementation of the paper "Bridging Reality and Animation: A Caption-Driven Diffusion Approach to Artistic Image Stylization" published in Springer.
+**Accepted at: 7th International Conference on Communication and Intelligent Systems (ICCIS 2025)**  
+**Published in: Springer Lecture Notes in Networks and Systems (Scopus-indexed)**  
+**Paper ID: 280 | Presented: September 26-27, 2025**
+
+Official implementation of the paper "Bridging Reality and Animation: A Caption-Driven Diffusion Approach to Artistic Image Stylization" accepted at ICCIS 2025 and published in Springer LNNS.
 
 ## 🎯 Overview
 
 This project presents a modular, caption-based image artistic transformation framework that converts real photographs into anime-inspired illustrations, drawing inspiration from Studio Ghibli and Soft Serve visual styles. The system achieves high creative stylization while maintaining strong semantic alignment between original images and resulting artwork.
 
-![Pipeline Architecture](assets/pipeline.png)
+
+## 🏆 Conference Details
+
+- **Conference**: 7th International Conference on Communication and Intelligent Systems (ICCIS 2025)
+- **Dates**: September 26-27, 2025
+- **Venue**: BITS Pilani, K K Birla Goa Campus, India (Hybrid Mode)
+- **Proceedings**: Springer Lecture Notes in Networks and Systems (Scopus-indexed)
+- **Paper ID**: 280
+- **Presentation Date**: September 26-27, 2025
+- **Status**: ✅ Accepted and Presented
 
 ## ✨ Key Features
 
@@ -41,18 +55,3 @@ This project presents a modular, caption-based image artistic transformation fra
 | **Ours (Ghibli)** | **26.4** | **0.73** |
 | **Ours (SoftServe)** | **28.1** | **0.70** |
 
-## 🚀 Quick Start
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/your-username/anime-stylization.git
-cd anime-stylization
-
-# Create conda environment
-conda create -n anime-stylization python=3.8
-conda activate anime-stylization
-
-# Install dependencies
-pip install -r requirements.txt
